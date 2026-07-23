@@ -1,0 +1,1661 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#23142f">
+  <title>US AI Regulatory Levers &amp; Outcomes</title>
+  <style>
+    :root {
+      --ink: #221c28;
+      --muted: #6d6470;
+      --muted-2: #8c838f;
+      --paper: #f5f0e8;
+      --paper-2: #ebe4da;
+      --card: #fffdf8;
+      --plum: #3a154a;
+      --plum-2: #5e2870;
+      --orchid: #a96fbd;
+      --rose: #da6b83;
+      --orange: #e58b50;
+      --mint: #69bca8;
+      --cyan: #62a9be;
+      --lime: #b8cf72;
+      --line: rgba(58, 21, 74, .14);
+      --line-strong: rgba(58, 21, 74, .27);
+      --shadow: 0 16px 44px rgba(40, 24, 46, .09);
+      --radius: 18px;
+      --max: 1480px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 90% -10%, rgba(169,111,189,.14), transparent 28%),
+        linear-gradient(180deg, #f9f6f1 0, var(--paper) 52%, #eee7de 100%);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid rgba(98,169,190,.55); outline-offset: 3px; }
+
+    .shell { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--plum-2);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 30;
+      top: 0;
+      border-bottom: 1px solid rgba(255,255,255,.13);
+      color: #fff;
+      background: rgba(35, 20, 47, .94);
+      backdrop-filter: blur(16px);
+    }
+    .topbar__inner {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+    .brand__mark {
+      width: 27px;
+      height: 27px;
+      position: relative;
+      border-radius: 8px;
+      background: conic-gradient(from 20deg, var(--mint), #efe4a1, var(--rose), var(--orchid), var(--mint));
+      box-shadow: inset 0 0 0 5px rgba(35,20,47,.48);
+    }
+    .brand__text { font-weight: 780; letter-spacing: -.01em; }
+    .brand__text span { color: rgba(255,255,255,.58); font-weight: 560; }
+    .nav { display: flex; align-items: center; gap: 8px; }
+    .nav a {
+      padding: 8px 10px;
+      color: rgba(255,255,255,.72);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 650;
+      border-radius: 9px;
+    }
+    .nav a:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .top-actions { display: flex; gap: 8px; }
+    .btn {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      background: rgba(255,255,255,.7);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 760;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 7px 18px rgba(45,28,51,.12); }
+    .btn--primary { color: #fff; background: var(--plum); border-color: var(--plum); }
+    .btn--primary:hover { background: #4a1c5c; }
+    .btn--ghost-dark { color: #fff; border-color: rgba(255,255,255,.26); background: rgba(255,255,255,.07); }
+    .btn--small { min-height: 31px; padding: 6px 10px; font-size: 12px; border-radius: 8px; }
+    .btn svg { width: 15px; height: 15px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 67px 0 52px;
+      color: #fff;
+      background:
+        linear-gradient(116deg, rgba(29,13,38,.98), rgba(55,20,69,.96) 56%, rgba(43,38,66,.96)),
+        var(--plum);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      top: -410px;
+      right: -120px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 0 0 70px rgba(255,255,255,.025), 0 0 0 140px rgba(255,255,255,.018);
+    }
+    .hero__grid { position: relative; display: grid; grid-template-columns: 1.18fr .82fr; gap: 68px; align-items: center; }
+    .hero .eyebrow { color: #d4b5df; }
+    .hero h1 {
+      max-width: 820px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(43px, 5vw, 76px);
+      font-weight: 500;
+      letter-spacing: -.048em;
+      line-height: .98;
+    }
+    .hero h1 em { color: #d8b3e2; font-style: normal; }
+    .hero__lede { max-width: 720px; margin: 24px 0 0; color: rgba(255,255,255,.72); font-size: 17px; line-height: 1.65; }
+    .hero__meta { display: flex; flex-wrap: wrap; gap: 11px 22px; margin-top: 25px; color: rgba(255,255,255,.63); font-size: 12px; }
+    .hero__meta span { display: inline-flex; align-items: center; gap: 7px; }
+    .hero__meta i { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); }
+    .hero-card {
+      position: relative;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 23px;
+      background: rgba(255,255,255,.075);
+      box-shadow: 0 24px 80px rgba(10,3,18,.22);
+      backdrop-filter: blur(14px);
+    }
+    .hero-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+    .hero-card__top p { margin: 0; color: rgba(255,255,255,.55); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .hero-card__score { font-family: Georgia, serif; font-size: 46px; line-height: 1; }
+    .hero-card__score small { color: rgba(255,255,255,.43); font-family: Inter, sans-serif; font-size: 13px; }
+    .fingerprint-wrap { display: grid; grid-template-columns: 190px 1fr; gap: 22px; align-items: center; margin-top: 12px; }
+    #radar { width: 190px; height: 190px; overflow: visible; }
+    .radar-grid { fill: none; stroke: rgba(255,255,255,.13); stroke-width: 1; }
+    .radar-axis { stroke: rgba(255,255,255,.15); stroke-width: 1; }
+    .radar-shape { fill: rgba(105,188,168,.28); stroke: #83d1be; stroke-width: 2.4; transition: all .3s ease; }
+    .radar-dot { fill: #f7d686; stroke: var(--plum); stroke-width: 2; transition: all .3s ease; }
+    .mini-list { display: grid; gap: 11px; }
+    .mini-row { display: grid; grid-template-columns: 1fr 58px; gap: 10px; align-items: center; }
+    .mini-row__label { color: rgba(255,255,255,.72); font-size: 12px; }
+    .mini-track { height: 5px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.12); }
+    .mini-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--mint), #e8cf83); transition: width .3s ease; }
+    .hero-card__foot {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .hero-stat span { display: block; color: rgba(255,255,255,.45); font-size: 10px; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+    .hero-stat strong { display: block; margin-top: 4px; font-size: 13px; }
+
+    .baseline-strip {
+      margin-top: -1px;
+      color: #fff;
+      background: #170c20;
+    }
+    .baseline-strip__inner {
+      min-height: 49px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 18px;
+    }
+    .live-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .live-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 5px rgba(105,188,168,.12); }
+    .baseline-strip p { margin: 0; overflow: hidden; color: rgba(255,255,255,.62); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .baseline-strip a { color: #d8bce1; font-size: 12px; font-weight: 700; text-decoration: none; }
+
+    main { padding-bottom: 80px; }
+    .section { padding: 72px 0 0; scroll-margin-top: 76px; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 25px;
+    }
+    .section-head h2 {
+      max-width: 860px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(32px, 3.3vw, 49px);
+      font-weight: 500;
+      letter-spacing: -.035em;
+      line-height: 1.08;
+    }
+    .section-head__copy { max-width: 530px; margin: 9px 0 0; color: var(--muted); }
+    .section-note {
+      max-width: 310px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,.52);
+      font-size: 12px;
+    }
+
+    .outcome-toolbar {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr .7fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .control-card {
+      padding: 15px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.64);
+    }
+    .control-card label, .control-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 830;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    select {
+      width: 100%;
+      padding: 8px 34px 8px 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 9px;
+      color: var(--ink);
+      background: var(--card);
+      font-weight: 700;
+    }
+    .segmented { display: flex; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: rgba(58,21,74,.04); }
+    .segmented button {
+      flex: 1;
+      padding: 7px 8px;
+      border: 0;
+      border-radius: 7px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 750;
+    }
+    .segmented button.active { color: var(--plum); background: #fff; box-shadow: 0 2px 7px rgba(41,25,48,.09); }
+    .federalism-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; font-weight: 700; }
+
+    .builder-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(330px, .72fr); gap: 18px; align-items: start; }
+    .lever-stack { display: grid; gap: 10px; }
+    .lever {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,253,248,.87);
+      box-shadow: 0 7px 25px rgba(44,29,49,.045);
+    }
+    .lever__main {
+      display: grid;
+      grid-template-columns: 224px 1fr 180px;
+      gap: 20px;
+      align-items: center;
+      padding: 18px 20px;
+    }
+    .lever__name { display: flex; gap: 12px; align-items: center; }
+    .lever__num {
+      width: 31px;
+      height: 31px;
+      display: inline-grid;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 9px;
+      color: var(--plum);
+      background: #efe5f1;
+      font-size: 12px;
+      font-weight: 850;
+    }
+    .lever__name h3 { margin: 0; font-size: 14px; line-height: 1.25; }
+    .lever__name span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .range-wrap { position: relative; padding-top: 2px; }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      margin: 7px 0;
+      appearance: none;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--plum) var(--fill, 25%), rgba(58,21,74,.12) var(--fill, 25%));
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      width: 19px;
+      height: 19px;
+      appearance: none;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: var(--plum);
+      box-shadow: 0 0 0 1px rgba(58,21,74,.26), 0 2px 8px rgba(45,28,51,.24);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 13px;
+      height: 13px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: var(--plum);
+      box-shadow: 0 0 0 1px rgba(58,21,74,.26);
+    }
+    .range-ticks { display: flex; justify-content: space-between; color: var(--muted-2); font-size: 9px; font-weight: 700; }
+    .lever__selection { text-align: right; }
+    .lever__level { display: block; color: var(--plum); font-size: 13px; font-weight: 820; }
+    .lever__desc { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .lever__details {
+      display: none;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap: 22px;
+      padding: 18px 20px 20px 63px;
+      border-top: 1px solid var(--line);
+      background: rgba(239,229,241,.32);
+    }
+    .lever.open .lever__details { display: grid; }
+    .detail-block span { display: block; margin-bottom: 6px; color: var(--muted); font-size: 9px; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
+    .detail-block p { margin: 0; font-size: 12px; }
+    .lever__toggle {
+      width: 100%;
+      padding: 7px 20px;
+      border: 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 760;
+      text-align: right;
+    }
+    .lever__toggle:hover { color: var(--plum); background: rgba(58,21,74,.025); }
+
+    .outcome-panel {
+      position: sticky;
+      top: 80px;
+      overflow: hidden;
+      border-radius: 22px;
+      color: #fff;
+      background: linear-gradient(155deg, #2c1538, #4b1f5a 63%, #282545);
+      box-shadow: var(--shadow);
+    }
+    .outcome-panel__head { padding: 23px 23px 16px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .outcome-panel__label { color: #cab2d1; font-size: 10px; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+    .outcome-panel h3 { margin: 9px 0 5px; font-family: Georgia, serif; font-size: 28px; font-weight: 500; letter-spacing: -.025em; line-height: 1.06; }
+    .outcome-panel__tag { display: inline-flex; margin-top: 8px; padding: 5px 8px; border: 1px solid rgba(255,255,255,.15); border-radius: 99px; color: rgba(255,255,255,.67); font-size: 10px; font-weight: 760; }
+    .outcome-panel__body { padding: 19px 23px 23px; }
+    .outcome-panel__body > p { margin: 0; color: rgba(255,255,255,.67); font-size: 13px; line-height: 1.58; }
+    .panel-divider { height: 1px; margin: 17px 0; background: rgba(255,255,255,.1); }
+    .signal-group { display: grid; gap: 10px; }
+    .signal-row { display: grid; grid-template-columns: 86px 1fr; gap: 10px; align-items: baseline; }
+    .signal-row span { color: rgba(255,255,255,.42); font-size: 9px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .signal-row strong { font-size: 12px; line-height: 1.4; }
+    .outcome-panel .btn { width: 100%; margin-top: 17px; color: var(--plum); border: 0; background: #fff; }
+
+    .impact-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,253,248,.86);
+      box-shadow: var(--shadow);
+    }
+    .matrix-wrap { overflow-x: auto; }
+    .impact-matrix { min-width: 1180px; display: grid; grid-template-columns: 250px repeat(6, minmax(125px, 1fr)) 120px; }
+    .matrix-cell {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 10px;
+      border-right: 1px solid rgba(58,21,74,.09);
+      border-bottom: 1px solid rgba(58,21,74,.09);
+      text-align: center;
+      font-size: 12px;
+    }
+    .matrix-cell--head { min-height: 53px; color: var(--muted); background: rgba(58,21,74,.035); font-size: 9px; font-weight: 850; letter-spacing: .08em; line-height: 1.25; text-transform: uppercase; }
+    .matrix-cell--row {
+      justify-content: flex-start;
+      gap: 7px;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .matrix-cell--group { background: rgba(58,21,74,.028); }
+    .matrix-cell--child { padding-left: 36px; background: rgba(255,255,255,.3); }
+    .group-toggle {
+      width: 27px;
+      height: 27px;
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--plum);
+      background: rgba(255,255,255,.65);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 850;
+      line-height: 1;
+    }
+    .group-toggle[aria-expanded="true"] { background: #eee3f0; }
+    .group-spacer { width: 27px; flex: 0 0 auto; }
+    .stakeholder-select {
+      min-width: 0;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 3px;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+    }
+    .stakeholder-select:hover strong, .stakeholder-select.is-selected strong { color: var(--plum-2); }
+    .stakeholder-select.is-selected { box-shadow: inset 3px 0 0 var(--stake, var(--orchid)); }
+    .stake-dot { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: var(--stake, var(--orchid)); }
+    .matrix-cell--row strong { display: block; font-size: 13px; }
+    .matrix-cell--row span { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+    .impact-score {
+      display: inline-flex;
+      min-width: 98px;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 9px;
+      border-radius: 8px;
+      color: #2d2630;
+      background: #eeeae7;
+      white-space: nowrap;
+      font-size: 10px;
+      font-weight: 820;
+    }
+    .impact-score[data-band="-2"] { color: #6e1425; background: #f5c3cb; }
+    .impact-score[data-band="-1"] { color: #772e25; background: #f5d0bb; }
+    .impact-score[data-band="0"] { color: #595159; background: #e9e5e4; }
+    .impact-score[data-band="1"] { color: #386252; background: #d7eadc; }
+    .impact-score[data-band="2"] { color: #164f4b; background: #97d5cc; }
+    .matrix-cell--total { background: rgba(58,21,74,.024); }
+    .matrix-legend { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 17px; color: var(--muted); font-size: 10px; }
+    .legend-scale { display: flex; gap: 4px; align-items: center; }
+    .legend-scale i { width: 22px; height: 8px; border-radius: 3px; }
+
+    .stakeholder-detail { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 15px; }
+    .detail-card {
+      min-height: 176px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.62);
+    }
+    .detail-card--dark { color: #fff; border-color: #30213b; background: #2c1a34; }
+    .detail-card h3 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 22px; font-weight: 500; }
+    .detail-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .detail-card--dark p { color: rgba(255,255,255,.62); }
+    .detail-card ul { margin: 10px 0 0; padding-left: 17px; }
+    .detail-card li { margin: 7px 0; font-size: 12px; }
+    .metric-pair { display: flex; align-items: flex-end; justify-content: space-between; gap: 15px; margin-top: 16px; }
+    .metric-pair strong { font-family: Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1; }
+    .metric-pair span { max-width: 150px; color: rgba(255,255,255,.5); font-size: 10px; text-align: right; }
+
+    .playbook-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+    .play-card {
+      padding: 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(255,253,248,.78);
+    }
+    .play-card__top { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .play-card__icon { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 10px; color: var(--plum); background: #eee3f0; font-weight: 900; }
+    .play-card__tag { padding: 4px 7px; border-radius: 99px; color: var(--muted); background: rgba(58,21,74,.05); font-size: 9px; font-weight: 830; letter-spacing: .08em; text-transform: uppercase; }
+    .play-card h3 { margin: 15px 0 8px; font-size: 15px; }
+    .play-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .play-card ul { margin: 14px 0 0; padding: 0; list-style: none; }
+    .play-card li {
+      position: relative;
+      margin: 10px 0;
+      padding: 0 0 0 17px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .play-card li::before { content: ""; position: absolute; top: .55em; left: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); }
+    .play-card--amber li::before { background: var(--orange); }
+    .play-card--rose li::before { background: var(--rose); }
+
+    .tail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .tail-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,253,248,.83);
+      box-shadow: 0 8px 24px rgba(39,24,45,.04);
+    }
+    .tail-card::before { content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 5px; background: var(--tail-color, var(--rose)); }
+    .tail-card__summary { padding: 20px 22px 18px 25px; cursor: pointer; }
+    .tail-card__meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .risk-badge { padding: 4px 7px; border-radius: 99px; color: #6c2530; background: #f5d6dc; font-size: 9px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .distance-badge { color: var(--muted); font-size: 10px; font-weight: 760; }
+    .tail-card h3 { margin: 0; font-family: Georgia, serif; font-size: 24px; font-weight: 500; letter-spacing: -.02em; }
+    .tail-card__summary p { margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .tail-card__detail { display: none; padding: 0 22px 21px 25px; }
+    .tail-card.open .tail-card__detail { display: block; }
+    .transmission {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 8px;
+      align-items: center;
+      margin: 15px 0;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(58,21,74,.045);
+    }
+    .transmission span { font-size: 10px; font-weight: 720; text-align: center; }
+    .transmission i { color: var(--plum-2); font-style: normal; font-weight: 900; }
+    .tail-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .tail-detail-block { padding: 12px; border: 1px solid var(--line); border-radius: 11px; }
+    .tail-detail-block span { display: block; margin-bottom: 6px; color: var(--muted); font-size: 9px; font-weight: 840; letter-spacing: .09em; text-transform: uppercase; }
+    .tail-detail-block p { margin: 0; font-size: 11px; }
+    .tail-card__actions { display: flex; gap: 8px; margin-top: 13px; }
+
+    .watch-layout { display: grid; grid-template-columns: .68fr 1.32fr; gap: 17px; align-items: stretch; }
+    .watch-thesis {
+      padding: 26px;
+      border-radius: 19px;
+      color: #fff;
+      background: linear-gradient(145deg, #32173e, #4c205a);
+      box-shadow: var(--shadow);
+    }
+    .watch-thesis h3 { margin: 0 0 12px; font-family: Georgia, serif; font-size: 30px; font-weight: 500; line-height: 1.08; }
+    .watch-thesis p { color: rgba(255,255,255,.63); font-size: 13px; }
+    .watch-thesis strong { color: #fff; }
+    .watch-list { overflow: hidden; border: 1px solid var(--line); border-radius: 19px; background: rgba(255,253,248,.82); }
+    .watch-row {
+      display: grid;
+      grid-template-columns: 42px 1fr 135px;
+      gap: 15px;
+      align-items: center;
+      min-height: 72px;
+      padding: 12px 17px;
+      border-bottom: 1px solid var(--line);
+    }
+    .watch-row:last-child { border-bottom: 0; }
+    .watch-row__num { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: var(--plum); background: #eee3f0; font-weight: 850; }
+    .watch-row strong { display: block; font-size: 13px; }
+    .watch-row p { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+    .watch-row__status { justify-self: end; padding: 5px 8px; border-radius: 99px; font-size: 9px; font-weight: 840; text-transform: uppercase; }
+    .status-live { color: #175248; background: #cfe9df; }
+    .status-moving { color: #6a4a16; background: #f1e4bb; }
+    .status-tail { color: #702432; background: #f3d5db; }
+
+    .evidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .source-card {
+      min-height: 155px;
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: inherit;
+      background: rgba(255,255,255,.58);
+      text-decoration: none;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .source-card:hover { transform: translateY(-2px); border-color: var(--line-strong); background: rgba(255,255,255,.92); }
+    .source-card__type { color: var(--plum-2); font-size: 9px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .source-card strong { display: block; margin-top: 10px; font-size: 13px; line-height: 1.35; }
+    .source-card p { margin: 7px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .source-card small { margin-top: auto; padding-top: 13px; color: var(--muted-2); }
+
+    details.methodology { margin-top: 16px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.53); }
+    details.methodology summary { padding: 16px 18px; cursor: pointer; color: var(--plum); font-weight: 790; }
+    .methodology__body { padding: 0 18px 18px; color: var(--muted); font-size: 12px; }
+    .methodology__body ul { margin: 10px 0 0; padding-left: 18px; }
+
+    footer { margin-top: 74px; padding: 28px 0 38px; border-top: 1px solid var(--line); color: var(--muted); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 30px; }
+    .footer-inner strong { color: var(--ink); }
+    .footer-inner p { max-width: 760px; margin: 4px 0 0; font-size: 11px; }
+    .footer-asof { text-align: right; font-size: 11px; }
+
+    .toast {
+      position: fixed;
+      z-index: 50;
+      right: 22px;
+      bottom: 22px;
+      max-width: 360px;
+      padding: 13px 15px;
+      border-radius: 11px;
+      color: #fff;
+      background: #211729;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      font-size: 12px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1160px) {
+      .nav { display: none; }
+      .hero__grid { grid-template-columns: 1fr; gap: 35px; }
+      .hero-card { max-width: 670px; }
+      .builder-layout { grid-template-columns: 1fr; }
+      .outcome-panel { position: relative; top: auto; }
+      .lever__main { grid-template-columns: 200px 1fr 160px; }
+      .stakeholder-detail, .playbook-grid, .evidence-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 820px) {
+      .shell { width: min(calc(100% - 24px), var(--max)); }
+      .top-actions .btn:first-child { display: none; }
+      .hero { padding-top: 48px; }
+      .fingerprint-wrap { grid-template-columns: 150px 1fr; }
+      #radar { width: 150px; height: 150px; }
+      .baseline-strip__inner { grid-template-columns: auto 1fr; }
+      .baseline-strip a { display: none; }
+      .section { padding-top: 55px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .outcome-toolbar { grid-template-columns: 1fr; }
+      .lever__main { grid-template-columns: 1fr; gap: 13px; }
+      .lever__selection { text-align: left; }
+      .lever__details { grid-template-columns: 1fr; padding-left: 20px; }
+      .stakeholder-detail, .playbook-grid, .tail-grid, .watch-layout, .evidence-grid { grid-template-columns: 1fr; }
+      .watch-row { grid-template-columns: 36px 1fr; }
+      .watch-row__status { grid-column: 2; justify-self: start; }
+      .footer-inner { flex-direction: column; }
+      .footer-asof { text-align: left; }
+    }
+    @media (max-width: 520px) {
+      .brand__text span { display: none; }
+      .top-actions .btn { padding: 8px 10px; }
+      .hero h1 { font-size: 42px; }
+      .hero__lede { font-size: 15px; }
+      .fingerprint-wrap { grid-template-columns: 1fr; }
+      #radar { margin: 0 auto; }
+      .hero-card__foot { grid-template-columns: 1fr; }
+      .transmission { grid-template-columns: 1fr; }
+      .transmission i { transform: rotate(90deg); text-align: center; }
+      .tail-detail-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .topbar, .baseline-strip, .top-actions, .lever__toggle, .tail-card__actions, #copyMemo, #printMemo { display: none !important; }
+      body { background: #fff; }
+      .hero { padding: 32px 0; print-color-adjust: exact; }
+      .section { padding-top: 35px; break-inside: avoid; }
+      .outcome-panel { position: relative; top: auto; }
+      .tail-card__detail, .lever__details { display: block !important; }
+      .impact-card, .outcome-panel, .tail-card { break-inside: avoid; }
+      .shell { width: 96%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar__inner">
+      <div class="brand" aria-label="US AI Regulatory Levers and Outcomes">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">US AI Regulation <span>/ Levers &amp; Outcomes</span></span>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#builder">Build</a>
+        <a href="#impact">Impact</a>
+        <a href="#playbook">Plan</a>
+        <a href="#tail-risks">Tail risks</a>
+        <a href="#evidence">Evidence</a>
+      </nav>
+      <div class="top-actions">
+        <button class="btn btn--ghost-dark" id="copyMemo" type="button" title="Copy an executive policy brief">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy brief
+        </button>
+        <button class="btn btn--ghost-dark" id="printMemo" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Export
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="shell hero__grid">
+      <div>
+        <p class="eyebrow">US regulatory landscape · decision support</p>
+        <h1>US AI Regulatory <em>Levers &amp; Outcomes</em></h1>
+        <p class="hero__lede">
+          Explore how five independent regulatory levers could reshape AI economics, competitive advantage and portfolio actions across model labs, adopters and the data center value chain.
+        </p>
+        <div class="hero__meta">
+          <span><i></i> Horizon: through 2028</span>
+          <span><i></i> Evidence cut: 23 July 2026</span>
+          <span><i></i> Directional decision support — not a forecast</span>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Live policy setting profile">
+        <div class="hero-card__top">
+          <div>
+            <p>Policy setting profile</p>
+            <div class="hero-card__score"><span id="heroScore">35</span><small>/100</small></div>
+          </div>
+          <span class="outcome-panel__tag" id="heroRegime">Regulated acceleration</span>
+        </div>
+        <div class="fingerprint-wrap">
+          <svg id="radar" viewBox="0 0 200 200" role="img" aria-label="Radar chart of regulatory lever intensity">
+            <polygon class="radar-grid" points="100,22 174.2,75.9 145.9,163.1 54.1,163.1 25.8,75.9"></polygon>
+            <polygon class="radar-grid" points="100,61 137.1,88 122.9,131.6 77.1,131.6 62.9,88"></polygon>
+            <line class="radar-axis" x1="100" y1="100" x2="100" y2="22"></line>
+            <line class="radar-axis" x1="100" y1="100" x2="174.2" y2="75.9"></line>
+            <line class="radar-axis" x1="100" y1="100" x2="145.9" y2="163.1"></line>
+            <line class="radar-axis" x1="100" y1="100" x2="54.1" y2="163.1"></line>
+            <line class="radar-axis" x1="100" y1="100" x2="25.8" y2="75.9"></line>
+            <polygon id="radarShape" class="radar-shape" points=""></polygon>
+            <g id="radarDots"></g>
+          </svg>
+          <div class="mini-list" id="heroBars"></div>
+        </div>
+        <div class="hero-card__foot">
+          <div class="hero-stat"><span>Policy distance</span><strong id="heroDistance">Current-policy adjacent</strong></div>
+          <div class="hero-stat"><span>Primary constraint</span><strong id="heroConstraint">Model safety</strong></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="baseline-strip">
+    <div class="shell baseline-strip__inner">
+      <span class="live-pill"><i></i> Current baseline</span>
+      <p>Federal posture remains pro-innovation and preemption-oriented; pressure is concentrated in national security, state frontier-model rules and grid cost allocation.</p>
+      <a href="#evidence">View evidence →</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="section shell" id="builder">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">01 · Regulatory levers</p>
+          <h2>Move the levers independently.</h2>
+          <p class="section-head__copy">A high-intervention regime is rarely uniform. Build the policy mix and set the federal-state balance to see where value may shift.</p>
+        </div>
+        <div class="section-note">Start with the current baseline, then change one lever at a time to isolate the transmission mechanism.</div>
+      </div>
+
+      <div class="outcome-toolbar">
+        <div class="control-card">
+          <label for="presetSelect">Policy mix preset</label>
+          <select id="presetSelect" aria-label="Choose a policy mix preset"></select>
+        </div>
+        <div class="control-card">
+          <span class="control-label">Decision horizon</span>
+          <div class="segmented" id="horizonControl" role="group" aria-label="Decision horizon">
+            <button type="button" data-horizon="6">6 months</button>
+            <button type="button" data-horizon="12" class="active">12 months</button>
+            <button type="button" data-horizon="24">24 months</button>
+          </div>
+        </div>
+        <div class="control-card">
+          <label for="federalismRange">Rulemaking center of gravity</label>
+          <input id="federalismRange" type="range" min="0" max="100" step="5" value="65" aria-label="Federal preemption to state patchwork">
+          <div class="federalism-labels"><span>Federal</span><span>State patchwork</span></div>
+        </div>
+      </div>
+
+      <div class="builder-layout">
+        <div class="lever-stack" id="leverStack"></div>
+        <aside class="outcome-panel">
+          <div class="outcome-panel__head">
+            <span class="outcome-panel__label">Live synthesis</span>
+            <h3 id="outcomeTitle">Regulated acceleration</h3>
+            <span class="outcome-panel__tag" id="outcomeDistance">Current-policy adjacent</span>
+          </div>
+          <div class="outcome-panel__body">
+            <p id="outcomeNarrative"></p>
+            <div class="panel-divider"></div>
+            <div class="signal-group">
+              <div class="signal-row"><span>Binding lever</span><strong id="bindingLever"></strong></div>
+              <div class="signal-row"><span>Value transfer</span><strong id="valueTransfer"></strong></div>
+              <div class="signal-row"><span>Investor lens</span><strong id="investorLens"></strong></div>
+            </div>
+            <button class="btn" type="button" id="resetOutcome">Reset to current baseline</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section shell" id="impact">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">02 · Stakeholder impact</p>
+          <h2>Regulation redistributes value; it does not simply destroy it.</h2>
+          <p class="section-head__copy">Start with the high-level stakeholder categories. Expand Model Labs or the Data Center Value Chain to compare the underlying companies and sub-sectors.</p>
+        </div>
+        <div class="section-note">Impacts are shown in five directional bands, not as point estimates of financial performance.</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="matrix-wrap">
+          <div class="impact-matrix" id="impactMatrix" role="table" aria-label="Stakeholder impact matrix"></div>
+        </div>
+        <div class="matrix-legend">
+          <span>Directional effect under the selected policy mix</span>
+          <div class="legend-scale" aria-label="Color scale from highly negative to highly positive">
+            <span>Highly Negative</span>
+            <i style="background:#f5c3cb"></i><i style="background:#f5d0bb"></i>
+            <i style="background:#e9e5e4"></i>
+            <i style="background:#d7eadc"></i><i style="background:#97d5cc"></i>
+            <span>Highly Positive</span>
+          </div>
+        </div>
+      </div>
+      <div class="stakeholder-detail" id="stakeholderDetail"></div>
+    </section>
+
+    <section class="section shell" id="playbook">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">03 · Portfolio response</p>
+          <h2>Translate the policy mix into actions and option value.</h2>
+          <p class="section-head__copy">Separate moves that make sense in every regime from contingent actions that should only be triggered by observable policy milestones.</p>
+        </div>
+      </div>
+      <div class="playbook-grid" id="playbookGrid"></div>
+    </section>
+
+    <section class="section shell" id="tail-risks">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">04 · High-intervention outcomes</p>
+          <h2>Go deeper on the outcomes that can break the base case.</h2>
+          <p class="section-head__copy">Each severe outcome identifies the catalyst, transmission chain, value transfer and investable response. Apply any outcome to the levers above.</p>
+        </div>
+        <div class="section-note">“High-intervention” describes policy intensity, not our view of policy merit.</div>
+      </div>
+      <div class="tail-grid" id="tailGrid"></div>
+    </section>
+
+    <section class="section shell" id="watchlist">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">05 · Signpost watchlist</p>
+          <h2>Track the mechanism, not the rhetoric.</h2>
+          <p class="section-head__copy">These are the observable milestones that would justify changing an assumption or moving a contingent action into execution.</p>
+        </div>
+      </div>
+      <div class="watch-layout">
+        <aside class="watch-thesis">
+          <h3>The base case is internally split.</h3>
+          <p><strong>Washington is pushing acceleration and national consistency</strong>, while states and grid regulators are adding disclosure, incident reporting and cost-allocation obligations.</p>
+          <p>This makes a mixed regime more plausible than either full deregulation or full-stack command-and-control.</p>
+        </aside>
+        <div class="watch-list" id="watchList"></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="evidence">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">06 · Evidence base</p>
+          <h2>Current policy anchors and primary sources.</h2>
+          <p class="section-head__copy">The baseline uses official federal, state and company materials available as of 23 July 2026. Severe outcomes are explicit extrapolations from existing legal mechanisms.</p>
+        </div>
+      </div>
+      <div class="evidence-grid" id="evidenceGrid"></div>
+      <details class="methodology">
+        <summary>Methodology, assumptions and limitations</summary>
+        <div class="methodology__body">
+          <p>The tool converts five policy levers into six impact dimensions across four high-level stakeholder categories. Expandable rows show four model labs and three parts of the data center value chain. Each lever has a mechanism-specific sensitivity matrix; federal-state fragmentation adds a compliance penalty, and the decision horizon scales the degree of impact realization.</p>
+          <ul>
+            <li>Impacts are relative, ordinal judgments across five directional bands—not expected returns or probabilities.</li>
+            <li>Competitive-position scores can be positive even when absolute industry economics are negative—for example, an incumbent may gain share while its total addressable market grows more slowly.</li>
+            <li>The “policy distance” label compares the selected mix with the July 2026 baseline; it is not a likelihood forecast.</li>
+            <li>High-intervention outcomes are deliberately severe and may require legislation, litigation outcomes, emergency authorities or a change in administration.</li>
+            <li>The tool is strategic decision support, not legal advice. Transaction-level analysis should separately assess CFIUS, export controls, antitrust and sector-specific rules.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <div>
+        <strong>US AI Regulatory Levers &amp; Outcomes</strong>
+        <p>Built from the source presentation and expanded into a modular policy model for a long-horizon, globally diversified investor.</p>
+      </div>
+      <div class="footer-asof">Evidence cut: 23 July 2026<br>Policy model v1.1</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    const CATEGORIES = [
+      { key: "demand", label: "Revenue / demand" },
+      { key: "cost", label: "Operating cost" },
+      { key: "speed", label: "Time-to-market" },
+      { key: "flex", label: "Strategic flexibility" },
+      { key: "capital", label: "Capital / valuation" },
+      { key: "position", label: "Competitive position" }
+    ];
+
+    const LEVERS = [
+      {
+        key: "access", short: "Access", name: "Access & Reach", sub: "Who may use, receive or export AI",
+        actors: "Commerce/BIS, Treasury/OFAC, DHS, Congress, procurement agencies",
+        levels: [
+          { label: "Open access", desc: "Broad model and API availability.", mechanisms: "Normal sanctions and general export rules.", signal: "No expansion of model- or compute-specific customer controls." },
+          { label: "Targeted controls", desc: "Adversary and use-case restrictions.", mechanisms: "Chip / weight export controls, entity lists, federal procurement conditions.", signal: "More end-user guidance, validated-user programs or procurement content rules." },
+          { label: "Verified access", desc: "Identity and location checks for sensitive capability.", mechanisms: "Frontier API KYC, IaaS customer verification, geofencing and enhanced records.", signal: "Identity obligations move from voluntary trust-and-safety practice into law or licenses." },
+          { label: "Licensed distribution", desc: "Permission required for frontier access or export.", mechanisms: "Capability-tier licenses, weight escrow, approved destinations and sovereign routing.", signal: "Licensing attaches to models, not only chips or sanctioned end users." },
+          { label: "Universal gating", desc: "Broad identity gating and distribution controls.", mechanisms: "Universal model ID, weight embargoes, use authorization and continuous access monitoring.", signal: "Domestic or allied users require authorization to access high-capability systems." }
+        ]
+      },
+      {
+        key: "ownership", short: "Control", name: "Ownership & Control", sub: "Who may finance, govern or direct strategic AI assets",
+        actors: "Treasury/CFIUS, DOJ, FTC, Congress, President under DPA / IEEPA authorities",
+        levels: [
+          { label: "Market-led", desc: "Ordinary financing and governance.", mechanisms: "Standard corporate, securities and antitrust law.", signal: "No AI-specific investor rights or ownership restrictions." },
+          { label: "Enhanced review", desc: "National-security review and rights mitigation.", mechanisms: "CFIUS filings, information-access limits, proxy boards, passive-rights structuring.", signal: "AI models, compute or sensitive datasets draw more transaction scrutiny." },
+          { label: "Ownership limits", desc: "Caps, declarations and structural guardrails.", mechanisms: "Foreign ownership caps, mandatory declarations, sunset rights, cloud-partner remedies.", signal: "Rules focus on board rights, data access, exclusivity or state-backed capital." },
+          { label: "Strategic control", desc: "Government rights or forced separation.", mechanisms: "Golden shares, forced divestitures, IP access rights, antitrust separation and capacity reservations.", signal: "Government seeks affirmative governance rights rather than negative mitigation covenants." },
+          { label: "Command model", desc: "National-champion or emergency control.", mechanisms: "Public equity, nationalization, DPA allocation, mandated licensing and control of strategic outputs.", signal: "AI assets are formally classified and governed as critical national infrastructure." }
+        ]
+      },
+      {
+        key: "safety", short: "Safety", name: "Model Release & Safety", sub: "What must happen before and after a frontier release",
+        actors: "Commerce/NIST/CAISI, sector regulators, state AGs, Congress, accredited evaluators",
+        levels: [
+          { label: "Self-certification", desc: "Developer determines readiness.", mechanisms: "Internal frameworks, terms of use and ordinary liability.", signal: "Government relies on post-hoc enforcement only." },
+          { label: "Voluntary evaluation", desc: "Standards, disclosure and voluntary external review.", mechanisms: "NIST/CAISI testing, model cards, safety frameworks and voluntary agreements.", signal: "Government capacity expands without binding release authority." },
+          { label: "Assurance regime", desc: "Incident reporting and accredited assurance.", mechanisms: "State transparency laws, mandatory incident reports, third-party audits and an industry SRO.", signal: "Common assurance methods emerge across California, New York and federal agencies." },
+          { label: "Federal licensing", desc: "Mandatory pre-deployment tests and ongoing monitoring.", mechanisms: "Frontier developer license, severe-risk tests, audit rights, fines and deployment conditions.", signal: "Federal rules define a capability or compute threshold and a legal release gate." },
+          { label: "Pre-approval & recall", desc: "FDA-style approval and government stop authority.", mechanisms: "Pre-market authorization, continuous audit, recall / kill switch, strict liability and age limits.", signal: "An agency gains power to block, reverse or recall a model release." }
+        ]
+      },
+      {
+        key: "infra", short: "Infra", name: "AI Infrastructure", sub: "Energy, compute, data, water and site access",
+        actors: "DOE, FERC, EPA, Commerce, state PUCs, governors and local permitting bodies",
+        levels: [
+          { label: "Unconstrained build", desc: "Market-led capacity expansion.", mechanisms: "Ordinary permitting, tariffs and environmental review.", signal: "Power and permits remain local commercial constraints." },
+          { label: "Accelerated build", desc: "Permitting reform with cost-allocation safeguards.", mechanisms: "Federal-site development, fast tracks, tax support and pay-your-own-way pledges.", signal: "Approved projects receive faster interconnection and dedicated generation pathways." },
+          { label: "Conditional build", desc: "Patchwork limits and resource obligations.", mechanisms: "Separate tariffs, local taxes, water / emissions disclosure, benefit agreements and selective moratoria.", signal: "More states or utilities condition approval on generation, grid upgrades or community benefits." },
+          { label: "Priority allocation", desc: "Compute reporting, quotas and priority users.", mechanisms: "Capacity registries, sector allocation, queue priority, domestic-content rules and data localization.", signal: "Government ranks projects or end users by strategic priority." },
+          { label: "Rationed compute", desc: "Broad moratoria or resource command.", mechanisms: "National caps, DPA allocation, power rationing, requisition and strict resource quotas.", signal: "Federal intervention displaces ordinary power-market and site-level contracting." }
+        ]
+      },
+      {
+        key: "labor", short: "Labor", name: "Labor & Economic Sharing", sub: "How AI gains and disruption are distributed",
+        actors: "Congress, Treasury/IRS, Labor, state legislatures, sector regulators",
+        levels: [
+          { label: "Status quo", desc: "Existing tax and labor framework.", mechanisms: "Normal corporate tax, unemployment insurance and labor law.", signal: "AI displacement is handled through existing programs." },
+          { label: "Transition support", desc: "Voluntary funds and public reskilling.", mechanisms: "AI literacy, apprenticeships, tax credits and voluntary company commitments.", signal: "Programs expand without linking obligations to model revenue or automation." },
+          { label: "Worker safeguards", desc: "Notice, impact assessment and sector support.", mechanisms: "Automation notice, worker consultation, wage insurance and transition levies.", signal: "Rules shift from skills supply toward employer obligations." },
+          { label: "AI windfall compact", desc: "Tax and mandated redistribution.", mechanisms: "AI revenue / windfall tax, mandatory transition funds and sector employment conditions.", signal: "Legislation links frontier-model economics to dedicated redistribution." },
+          { label: "Automation social contract", desc: "System-wide sharing of AI rents.", mechanisms: "Automation tax, mandated profit sharing, public equity and UBI-style financing.", signal: "AI deployment rights become conditional on broad economic-sharing commitments." }
+        ]
+      }
+    ];
+
+    const PRESETS = {
+      baseline: { name: "Current baseline — mixed acceleration", values: [1,1,2,1,1], federalism: 65, horizon: 12 },
+      open: { name: "Open race — federal acceleration", values: [0,0,1,1,1], federalism: 20, horizon: 12 },
+      patchwork: { name: "State patchwork squeeze", values: [1,1,2,2,2], federalism: 95, horizon: 24 },
+      safety_gate: { name: "Frontier safety gate", values: [2,1,4,2,1], federalism: 30, horizon: 12 },
+      compute_crunch: { name: "Compute allocation crunch", values: [1,1,2,4,1], federalism: 65, horizon: 24 },
+      strategic_control: { name: "Strategic control regime", values: [3,4,3,3,2], federalism: 25, horizon: 24 },
+      social_compact: { name: "AI social compact", values: [1,2,2,2,4], federalism: 55, horizon: 24 },
+      full_stack: { name: "Full-stack emergency regime", values: [4,4,4,4,4], federalism: 20, horizon: 24 }
+    };
+
+    const STAKEHOLDERS = [
+      {
+        key: "model_labs", name: "Model Labs", sub: "4 companies · expand to compare", color: "#8b6ab0", topLevel: true,
+        children: ["openai", "anthropic", "spacexai", "google"],
+        thesis: "Scaled model labs can absorb fixed compliance costs better than smaller competitors, but tighter release, access and control rules can slow the market and constrain strategic flexibility.",
+        opportunity: "Harmonized rules and high fixed compliance costs can reinforce incumbent scale advantages.",
+        risk: "Release gating, customer verification, infrastructure limits and government control rights can compress growth and reduce iteration speed.",
+        actions: ["Separate relative share gains from absolute market drag.", "Compare compliance capacity, cloud concentration and infrastructure control across labs.", "Underwrite longer release cycles and region-specific distribution constraints."]
+      },
+      {
+        key: "openai", name: "OpenAI", sub: "Scaled frontier lab", color: "#8b6ab0",
+        thesis: "Scale and compliance capacity create relative advantage, but release gates and distribution controls can compress iteration speed and international reach.",
+        opportunity: "Common federal rules can displace duplicative state compliance and raise barriers to smaller labs.",
+        risk: "Pre-approval, access gating or strategic-control remedies can impair release cadence, product reach and partner economics.",
+        actions: ["Underwrite longer release cycles and higher assurance cost.", "Test Microsoft concentration and structural-remedy exposure.", "Separate absolute market drag from relative share gains."],
+        coeff: [
+          [-1.4,-0.8,-1.5,-1.3,-0.8,0.7], [-0.4,-0.7,-0.4,-1.8,-1.0,-0.3], [0.6,-1.4,-2.1,-0.6,0.2,1.5], [-0.3,-1.8,-1.1,-1.1,-0.8,0.4], [-0.1,-0.6,-0.5,-0.5,-0.8,-0.2]
+        ]
+      },
+      {
+        key: "anthropic", name: "Anthropic", sub: "Scaled safety-led lab", color: "#ce7456",
+        thesis: "A formal safety regime may validate Anthropic’s positioning and capabilities, though heavy release authority still slows deployment and raises fixed cost.",
+        opportunity: "Safety assurance can become a demand and share catalyst if customers treat audited systems as the trusted default.",
+        risk: "Cloud concentration, power exposure and rules that go beyond assurance into government release control.",
+        actions: ["Value regulatory alignment separately from compliance cost.", "Stress-test Amazon / Google partnership remedies.", "Track whether safety standards become capability-neutral or incumbent-shaped."],
+        coeff: [
+          [-1.2,-0.7,-1.3,-1.2,-0.7,0.8], [-0.3,-0.7,-0.3,-1.6,-0.8,-0.2], [0.9,-1.0,-1.5,-0.3,0.7,2.0], [-0.3,-1.6,-1.0,-0.9,-0.7,0.5], [-0.1,-0.5,-0.4,-0.4,-0.6,-0.1]
+        ]
+      },
+      {
+        key: "spacexai", name: "SpaceXAI", sub: "Vertically integrated lab + infrastructure", color: "#4d78a6",
+        thesis: "Integration across models, terrestrial compute, launch and connectivity creates optionality, but also concentrates cross-regulatory exposure.",
+        opportunity: "Scarce power and siting can increase the strategic value of vertical infrastructure and prospective orbital compute.",
+        risk: "Distribution, national-security, spectrum, ownership and release rules can compound rather than remain siloed.",
+        actions: ["Underwrite the combined regulatory perimeter, not xAI in isolation.", "Treat orbital compute as long-dated optionality, not a base-case hedge.", "Map shared dependencies across power, chips, launch and government demand."],
+        coeff: [
+          [-1.2,-0.8,-1.5,-1.4,-1.0,-0.2], [-0.2,-0.6,-0.5,-1.8,-1.0,-0.2], [-0.4,-1.2,-1.8,-0.8,-0.5,0.5], [0.8,-1.4,-0.8,-0.5,-0.6,1.3], [-0.1,-0.7,-0.6,-0.6,-1.0,-0.4]
+        ]
+      },
+      {
+        key: "google", name: "Google", sub: "Integrated frontier lab + cloud", color: "#5a8fcb",
+        thesis: "Integration across models, cloud infrastructure and distribution creates resilience, while a broad regulatory perimeter raises antitrust and structural-remedy exposure.",
+        opportunity: "Scale, internal infrastructure and established assurance capabilities can turn common standards into a relative advantage.",
+        risk: "Rules spanning model release, cloud concentration, distribution and infrastructure can create compounding obligations.",
+        actions: ["Assess Google DeepMind and Google Cloud as a combined regulatory exposure.", "Test structural-remedy and self-preferencing risks.", "Distinguish infrastructure advantage from regulatory perimeter expansion."],
+        coeff: [
+          [-1.0,-0.6,-1.2,-1.0,-0.5,0.8], [-0.2,-0.5,-0.3,-0.8,-0.5,0.4], [0.7,-1.0,-1.5,-0.3,0.5,1.4], [-0.2,-1.1,-0.7,-0.6,-0.4,0.9], [-0.1,-0.5,-0.4,-0.4,-0.6,-0.1]
+        ]
+      },
+      {
+        key: "startups", name: "Emerging AI Startups", sub: "Models, tools and applications", color: "#9c9d47", topLevel: true,
+        thesis: "Fixed compliance cost and access friction hit young companies hardest; model-agnostic assurance and compliance infrastructure are the main exceptions.",
+        opportunity: "RegTech, evaluation, security, sovereignty tooling and efficient-model startups can become picks-and-shovels winners.",
+        risk: "Capital formation, model access and iteration speed deteriorate together when several levers tighten.",
+        actions: ["Add regulatory working-capital runway to underwriting.", "Prefer architectures that can swap models and deployment venues.", "Reserve capital for compliance-triggered consolidation."],
+        coeff: [
+          [-1.5,-0.8,-1.6,-1.2,-1.4,-1.0], [-0.4,-0.7,-0.5,-0.6,-1.4,-0.7], [-0.7,-1.8,-2.5,-1.5,-1.8,-1.5], [-0.4,-2.0,-1.3,-1.0,-1.2,-1.0], [0.0,-0.4,-0.5,-0.3,-0.8,-0.2]
+        ]
+      },
+      {
+        key: "adopters", name: "Enterprise AI Adopters", sub: "Regulated and large enterprises", color: "#57a590", topLevel: true,
+        thesis: "Assurance can unlock demand, but fragmentation, access controls and compute scarcity raise integration cost and slow scaled deployment.",
+        opportunity: "Common standards reduce model risk and make vendor selection defensible to boards and regulators.",
+        risk: "Model concentration, price pass-through, localization and duplicated state obligations weaken expected automation ROI.",
+        actions: ["Contract for model portability and regulatory change.", "Build an internal control plane for evaluation, logging and access.", "Sequence use cases by regulatory sensitivity and compute intensity."],
+        coeff: [
+          [-1.7,-0.9,-0.8,-1.8,-0.6,-0.5], [-0.1,-0.2,-0.2,-0.6,-0.4,0.0], [0.4,-0.2,-0.4,-0.1,0.3,0.2], [-0.6,-1.5,-1.0,-1.2,-0.7,-0.4], [-0.4,-0.4,-0.8,-0.9,-0.5,-0.7]
+        ]
+      },
+      {
+        key: "data_center_chain", name: "Data Center Value Chain", sub: "3 sub-sectors · expand to compare", color: "#d08043", topLevel: true,
+        children: ["dc_operators", "semiconductors", "power_operators"],
+        thesis: "Regulation can reduce aggregate capacity growth while shifting value toward scarce, approved and power-secured infrastructure.",
+        opportunity: "Permitted sites, advanced chips, grid equipment and dedicated generation can gain scarcity value when access is constrained.",
+        risk: "Moratoria, tariffs, export controls, allocation rules and community obligations affect each layer differently.",
+        actions: ["Diligence exposure separately across sites, chips and power.", "Price cost allocation, curtailment and upgrade obligations explicitly.", "Favor assets with executable capacity rather than speculative development rights."]
+      },
+      {
+        key: "dc_operators", name: "Data Center Operators", sub: "Sites, cooling and networking", color: "#d08043",
+        thesis: "Restrictions can slow campus buildout, but approved projects with executable power and permits may gain scarcity value.",
+        opportunity: "Fully permitted, power-secured sites can command a premium as marginal projects fall out of the queue.",
+        risk: "Moratoria, separate tariffs, water constraints and upgrade obligations can strand land or shift capital costs to developers.",
+        actions: ["Diligence power and permits at asset level.", "Model curtailment and dedicated-generation obligations.", "Avoid land-banking without executable interconnection."],
+        coeff: [
+          [-0.3,-0.1,-0.2,-0.4,-0.3,-0.1], [-0.2,-0.2,-0.1,-0.3,-0.2,0.0], [-0.1,-0.1,-0.2,0.0,-0.1,0.0], [-1.2,-2.5,-2.0,-1.8,-2.0,0.5], [0.1,-0.2,-0.2,-0.1,-0.1,0.0]
+        ]
+      },
+      {
+        key: "semiconductors", name: "Semiconductor Manufacturers", sub: "Accelerators, memory and equipment", color: "#b7793f",
+        thesis: "AI infrastructure demand remains structurally strong, but access controls and capacity allocation can redirect revenue by customer and geography.",
+        opportunity: "Domestic-content incentives, strategic capacity and efficiency requirements can favor approved suppliers.",
+        risk: "Export controls, customer concentration and government allocation can cap addressable demand or distort product mix.",
+        actions: ["Map revenue by controlled product, end user and geography.", "Assess domestic capacity and trusted-supplier status.", "Stress-test China exposure and hyperscaler concentration together."],
+        coeff: [
+          [-1.4,-0.8,-0.7,-1.1,-1.3,-0.2], [-0.3,-0.3,-0.2,-0.6,-0.5,0.2], [-0.2,-0.3,-0.3,-0.2,-0.2,0.1], [-0.2,-0.7,-0.6,-0.8,-0.9,0.5], [0.0,-0.3,-0.2,-0.2,-0.3,0.0]
+        ]
+      },
+      {
+        key: "power_operators", name: "Power Operators", sub: "Generation, transmission and utilities", color: "#d3a23a",
+        thesis: "AI load growth creates a major demand opportunity, but cost-allocation and reliability rules determine whether returns accrue to operators or are socialized away.",
+        opportunity: "Dedicated generation, grid upgrades and flexible-load services can attract capital and improve asset utilization.",
+        risk: "Ratepayer protection, curtailment mandates and slow interconnection can cap returns or delay contracted demand.",
+        actions: ["Underwrite tariff design and cost recovery by jurisdiction.", "Prioritize dispatchable generation and contracted grid upgrades.", "Model both load growth and curtailment exposure."],
+        coeff: [
+          [-0.1,-0.1,-0.1,-0.1,-0.1,0.0], [-0.1,-0.1,-0.1,-0.2,-0.1,0.0], [0.0,-0.1,-0.1,0.0,0.0,0.0], [-0.6,-1.3,-1.2,-0.8,-0.9,0.7], [0.1,-0.2,-0.1,-0.1,-0.1,0.0]
+        ]
+      }
+    ];
+
+    const TAIL_OUTCOMES = [
+      {
+        key: "safety_gate", title: "Frontier Safety Gate", subtitle: "Federal pre-approval, continuous audit and recall authority.",
+        distance: "Contingency", color: "#d16f7e",
+        catalyst: "A credible catastrophic model incident, rapid capability jump, or bipartisan agreement that voluntary testing has failed.",
+        mechanism: "A capability-threshold license with mandatory external evaluations, deployment conditions, incident reporting and government stop authority.",
+        chain: ["Release gate", "Longer model cycles", "Scale advantage"],
+        winners: "Accredited evaluators, safety tooling, scaled labs with mature controls, enterprise buyers seeking trusted systems.",
+        losers: "Capital-constrained labs, open-weight distribution, fast-following application companies tied to new model launches.",
+        response: "Fund assurance picks-and-shovels; extend lab runway assumptions; require portfolio-wide model portability and evidence-ready controls."
+      },
+      {
+        key: "compute_crunch", title: "Compute Allocation Regime", subtitle: "Priority access, capacity registry and rationed power.",
+        distance: "Stretch", color: "#d4874b",
+        catalyst: "Grid reliability events, ratepayer backlash, defense demand or an acute shortage of advanced compute.",
+        mechanism: "Government or grid operators rank users, require compute reporting, reserve capacity and impose moratoria or curtailment on non-priority projects.",
+        chain: ["Power constraint", "Capacity allocation", "Scarcity rents"],
+        winners: "Power-secured sites, dedicated generation, grid equipment, efficiency software and approved national-security workloads.",
+        losers: "Unpermitted campuses, merchant developers, compute-intensive startups and adopters without strategic priority.",
+        response: "Underwrite at site and interconnection level; acquire scarce power rights selectively; avoid land-banking without executable power."
+      },
+      {
+        key: "strategic_control", title: "Strategic Control Regime", subtitle: "Foreign ownership limits, government rights and structural remedies.",
+        distance: "Tail-risk", color: "#9e6aad",
+        catalyst: "National-security shock, perceived loss of control over frontier infrastructure, or competition concerns around cloud-lab concentration.",
+        mechanism: "Expanded CFIUS scope, investor-rights restrictions, golden shares, forced divestiture, partner separation or DPA priority rights.",
+        chain: ["Control review", "Rights constrained", "Capital repriced"],
+        winners: "Domestic capital, independent infrastructure providers, governance / compliance specialists and unbundled challengers.",
+        losers: "Foreign strategic capital, tightly coupled cloud-lab partnerships and investors relying on information or board rights.",
+        response: "Pre-clear governance structures; price passive or capped rights; maintain alternative instruments and domestic co-investor pathways."
+      },
+      {
+        key: "social_compact", title: "AI Social Compact", subtitle: "Windfall sharing, transition levies and deployment obligations.",
+        distance: "Tail-risk", color: "#b38d35",
+        catalyst: "Visible white-collar displacement, weak wage growth, election salience or a sharp concentration of frontier-model profits.",
+        mechanism: "AI-linked revenue or windfall taxes, automation notice, wage insurance, worker funds and deployment conditions.",
+        chain: ["Displacement shock", "AI-linked levy", "Margin transfer"],
+        winners: "Reskilling platforms, labor-enabling software, productivity-sharing models and firms with demonstrable worker augmentation.",
+        losers: "Labor-substitution business models, low-margin adopters and model companies unable to pass through levies.",
+        response: "Measure task displacement exposure; favor augmentation narratives backed by evidence; model tax and worker-fund pass-through."
+      },
+      {
+        key: "full_stack", title: "Full-Stack Emergency Regime", subtitle: "Simultaneous control of access, release, ownership and compute.",
+        distance: "Remote tail-risk", color: "#9b3f52",
+        catalyst: "A combined security, safety and infrastructure emergency that creates durable bipartisan support for exceptional powers.",
+        mechanism: "Emergency licensing, model and customer identity, compute allocation, government control rights and mandated economic sharing.",
+        chain: ["Emergency powers", "Stack-wide controls", "National champions"],
+        winners: "Approved incumbents, government suppliers, sovereign infrastructure and compliance / monitoring platforms.",
+        losers: "Unapproved labs, cross-border capital, open distribution, marginal data center projects and small adopters.",
+        response: "Preserve liquidity and governance flexibility; segment US exposure; build downside hedges in power, assurance and non-US demand."
+      }
+    ];
+
+    const WATCHLIST = [
+      { title: "Federal preemption and litigation", text: "Court outcomes, Commerce’s state-law evaluation and any congressional preemption language.", status: "Live", cls: "status-live" },
+      { title: "Frontier-model assurance convergence", text: "Whether CA, NY, CAISI and accredited evaluators converge on common tests and thresholds.", status: "Moving", cls: "status-moving" },
+      { title: "Large-load tariff reform", text: "FERC and regional grid rules on interconnection, cost allocation, flexible load and dedicated generation.", status: "Moving", cls: "status-moving" },
+      { title: "Export and verified-user expansion", text: "New BIS rules or guidance that shifts controls from chips and adversaries toward model access or IaaS customers.", status: "Live", cls: "status-live" },
+      { title: "AI ownership / partnership remedies", text: "CFIUS treatment of AI assets and competition action involving cloud-lab exclusivity, capacity or information rights.", status: "Live", cls: "status-live" },
+      { title: "AI-linked redistribution", text: "Movement from reskilling grants to employer mandates, transition levies or AI-specific taxation.", status: "Tail", cls: "status-tail" }
+    ];
+
+    const SOURCES = [
+      { type: "Federal strategy", title: "America’s AI Action Plan", desc: "Pro-innovation federal baseline: infrastructure buildout, adoption, exports and removal of regulatory barriers.", date: "White House · Jul 2025", url: "https://www.whitehouse.gov/wp-content/uploads/2025/07/Americas-AI-Action-Plan.pdf" },
+      { type: "Federal-state balance", title: "Executive Order 14365", desc: "Creates an AI litigation task force and directs review of state AI laws in favor of a minimally burdensome national framework.", date: "White House · Dec 2025", url: "https://www.whitehouse.gov/presidential-actions/2025/12/eliminating-state-law-obstruction-of-national-artificial-intelligence-policy/" },
+      { type: "Federal framework", title: "National AI Legislative Recommendations", desc: "Administration recommendations on preemption, children, creators, speech, workforce and innovation.", date: "White House · Mar 2026", url: "https://www.whitehouse.gov/wp-content/uploads/2026/03/03.20.26-National-Policy-Framework-for-Artificial-Intelligence-Legislative-Recommendations.pdf" },
+      { type: "Safety & standards", title: "Center for AI Standards and Innovation", desc: "Voluntary standards, private-sector agreements and evaluations focused on demonstrable national-security risks.", date: "NIST · current", url: "https://www.nist.gov/caisi" },
+      { type: "State safety", title: "California SB 53", desc: "Large frontier developers: transparency frameworks, incident reporting and related obligations.", date: "California · 2025–26 session", url: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53" },
+      { type: "State safety", title: "New York RAISE Act", desc: "Requires safety frameworks and 72-hour critical-incident reporting; creates a frontier-model oversight office.", date: "New York · Dec 2025", url: "https://www.governor.ny.gov/news/governor-hochul-signs-nation-leading-legislation-require-ai-frameworks-ai-frontier-models" },
+      { type: "Access & exports", title: "BIS AI Diffusion Rule Rescission", desc: "Rescinds the broad diffusion rule while retaining and strengthening targeted chip-related controls and diversion guidance.", date: "Commerce/BIS · May 2025", url: "https://www.bis.gov/press-release/department-commerce-announces-rescission-biden-era-artificial-intelligence-diffusion-rule-strengthens" },
+      { type: "Infrastructure", title: "Data Center Resource Hub", desc: "Permitting and federal-site acceleration paired with a ratepayer pledge requiring new power, delivery upgrades and separate rates.", date: "Department of Energy · current", url: "https://www.energy.gov/powering-americas-ai-future-data-center-resource-hub" },
+      { type: "Power regulation", title: "Large-load interconnection reform", desc: "FERC action across six regional grid operators on tariffs for data centers and other large energy users.", date: "DOE / FERC · Jun 2026", url: "https://www.energy.gov/articles/department-energy-applauds-fercs-action-large-load-interconnection-reform" },
+      { type: "Ownership & control", title: "CFIUS Overview", desc: "Mandatory declarations can apply when a foreign government acquires a substantial interest in certain US businesses.", date: "US Treasury · current", url: "https://home.treasury.gov/policy-issues/international/the-committee-on-foreign-investment-in-the-united-states-cfius/cfius-overview" },
+      { type: "Competition", title: "AI Partnerships & Investments Study", desc: "FTC analysis of cloud-provider partnerships with OpenAI and Anthropic, including competitive and lock-in dynamics.", date: "FTC · Jan 2025", url: "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-issues-staff-report-ai-partnerships-investments-study" },
+      { type: "Company structure", title: "xAI joins SpaceX", desc: "SpaceX acquired xAI in February 2026, creating a vertically integrated AI and infrastructure stakeholder.", date: "SpaceXAI · Feb 2026", url: "https://x.ai/news/xai-joins-spacex" }
+    ];
+
+    const state = {
+      values: [...PRESETS.baseline.values],
+      federalism: PRESETS.baseline.federalism,
+      horizon: PRESETS.baseline.horizon,
+      selectedStakeholder: "model_labs",
+      expandedGroups: new Set(),
+      preset: "baseline"
+    };
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+    const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+    const categoryName = key => CATEGORIES.find(c => c.key === key)?.label || key;
+    const topLevelStakeholders = () => STAKEHOLDERS.filter(s => s.topLevel);
+    const stakeholderByKey = key => STAKEHOLDERS.find(s => s.key === key);
+    const impactBand = score => {
+      if (score <= -1.35) return { label: "Highly Negative", band: -2 };
+      if (score <= -.35) return { label: "Negative", band: -1 };
+      if (score < .35) return { label: "Neutral", band: 0 };
+      if (score < 1.35) return { label: "Positive", band: 1 };
+      return { label: "Highly Positive", band: 2 };
+    };
+
+    function populatePresets() {
+      const select = $("#presetSelect");
+      select.innerHTML = Object.entries(PRESETS).map(([key, p]) => `<option value="${key}">${p.name}</option>`).join("");
+      select.value = state.preset;
+    }
+
+    function renderLevers() {
+      $("#leverStack").innerHTML = LEVERS.map((lever, index) => {
+        const level = lever.levels[state.values[index]];
+        return `
+          <article class="lever" data-lever="${lever.key}">
+            <div class="lever__main">
+              <div class="lever__name">
+                <span class="lever__num">0${index + 1}</span>
+                <div><h3>${lever.name}</h3><span>${lever.sub}</span></div>
+              </div>
+              <div class="range-wrap">
+                <input type="range" min="0" max="4" step="1" value="${state.values[index]}" data-index="${index}" aria-label="${lever.name} intensity" style="--fill:${state.values[index] * 25}%">
+                <div class="range-ticks"><span>Open</span><span>Targeted</span><span>Assured</span><span>Licensed</span><span>Command</span></div>
+              </div>
+              <div class="lever__selection">
+                <span class="lever__level">${level.label}</span>
+                <span class="lever__desc">${level.desc}</span>
+              </div>
+            </div>
+            <div class="lever__details">
+              <div class="detail-block"><span>Mechanisms</span><p>${level.mechanisms}</p></div>
+              <div class="detail-block"><span>Primary actors</span><p>${lever.actors}</p></div>
+              <div class="detail-block"><span>Escalation signpost</span><p>${level.signal}</p></div>
+            </div>
+            <button class="lever__toggle" type="button" aria-expanded="false">Show mechanism detail ↓</button>
+          </article>`;
+      }).join("");
+
+      $$('#leverStack input[type="range"]').forEach(input => {
+        input.addEventListener("input", event => {
+          const i = Number(event.target.dataset.index);
+          state.values[i] = Number(event.target.value);
+          state.preset = "custom";
+          $("#presetSelect").value = "";
+          updateAll();
+        });
+      });
+      $$(".lever__toggle").forEach(btn => btn.addEventListener("click", () => {
+        const card = btn.closest(".lever");
+        const open = card.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(open));
+        btn.textContent = open ? "Hide mechanism detail ↑" : "Show mechanism detail ↓";
+      }));
+    }
+
+    function calculateImpact(stakeholder) {
+      if (stakeholder.children?.length) {
+        const childScores = stakeholder.children.map(key => calculateImpact(stakeholderByKey(key)));
+        return CATEGORIES.map((_, index) => childScores.reduce((sum, scores) => sum + scores[index], 0) / childScores.length);
+      }
+      const out = Array(6).fill(0);
+      const horizonFactor = state.horizon === 6 ? .68 : state.horizon === 12 ? .84 : 1;
+      state.values.forEach((level, leverIndex) => {
+        const intensity = level / 4;
+        stakeholder.coeff[leverIndex].forEach((coef, catIndex) => { out[catIndex] += coef * intensity; });
+      });
+      const fragmentation = Math.max(0, (state.federalism - 50) / 50);
+      const fragPenalty = stakeholder.key === "startups" ? 1
+        : stakeholder.key === "adopters" ? .72
+        : ["dc_operators","semiconductors","power_operators"].includes(stakeholder.key) ? .45
+        : .35;
+      out[1] -= fragmentation * fragPenalty;
+      out[2] -= fragmentation * fragPenalty * .85;
+      out[3] -= fragmentation * fragPenalty * .45;
+      if (state.values[2] >= 3 && ["openai","anthropic","google"].includes(stakeholder.key)) out[5] += .35;
+      if (state.values[3] >= 3 && ["dc_operators","semiconductors","power_operators"].includes(stakeholder.key)) out[5] += .45;
+      return out.map(v => clamp(v * horizonFactor, -3, 3));
+    }
+
+    function outcomeMetrics() {
+      const weights = [1.0, .9, 1.15, 1.15, .8];
+      const weighted = state.values.reduce((sum, v, i) => sum + v * weights[i], 0);
+      const max = 4 * weights.reduce((a,b) => a + b, 0);
+      const pressure = Math.round(weighted / max * 100);
+      const base = PRESETS.baseline.values;
+      let distance = state.values.reduce((sum, v, i) => sum + Math.abs(v - base[i]) * weights[i], 0) / weights.reduce((a,b) => a + b, 0);
+      distance += Math.abs(state.federalism - PRESETS.baseline.federalism) / 160;
+      const distanceLabel = distance < .48 ? "Current-policy adjacent" : distance < 1.08 ? "Stretch" : distance < 1.75 ? "Tail risk" : "Remote tail risk";
+      const maxValue = Math.max(...state.values);
+      const bindingIndex = state.values.findIndex(v => v === maxValue);
+      const average = state.values.reduce((a,b) => a+b,0) / state.values.length;
+      let title = "Regulated acceleration";
+      if (state.preset && PRESETS[state.preset]) title = PRESETS[state.preset].name.split(" — ")[0];
+      else if (average <= .8) title = "Open AI race";
+      else if (state.federalism >= 80) title = "Patchwork pressure";
+      else if (average >= 3.55) title = "Full-stack command";
+      else if (maxValue >= 3) title = `${LEVERS[bindingIndex].name} squeeze`;
+      return { pressure, distance, distanceLabel, bindingIndex, title };
+    }
+
+    function updateHero(metrics) {
+      $("#heroScore").textContent = metrics.pressure;
+      $("#heroRegime").textContent = metrics.title;
+      $("#heroDistance").textContent = metrics.distanceLabel;
+      $("#heroConstraint").textContent = LEVERS[metrics.bindingIndex].name;
+      const center = { x: 100, y: 100 }, radius = 78;
+      const outer = Array.from({ length: 5 }, (_, i) => {
+        const angle = -Math.PI / 2 + i * 2 * Math.PI / 5;
+        const r = radius * (.12 + .88 * state.values[i] / 4);
+        return { x: center.x + Math.cos(angle) * r, y: center.y + Math.sin(angle) * r };
+      });
+      $("#radarShape").setAttribute("points", outer.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" "));
+      $("#radarDots").innerHTML = outer.map(p => `<circle class="radar-dot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.3"></circle>`).join("");
+      $("#heroBars").innerHTML = LEVERS.map((l,i) => `
+        <div class="mini-row">
+          <div><div class="mini-row__label">${l.short}</div><div class="mini-track"><span style="width:${state.values[i]*25}%"></span></div></div>
+          <strong>${state.values[i]}/4</strong>
+        </div>`).join("");
+    }
+
+    function updateSynthesis(metrics) {
+      const stakeholderScores = topLevelStakeholders().map(s => ({ s, scores: calculateImpact(s) }));
+      const totals = stakeholderScores.map(x => x.scores.reduce((a,b) => a+b,0)/6);
+      const loserIndex = totals.indexOf(Math.min(...totals));
+      const winnerIndex = totals.indexOf(Math.max(...totals));
+      const binding = LEVERS[metrics.bindingIndex];
+      const level = binding.levels[state.values[metrics.bindingIndex]];
+      const federalText = state.federalism > 70 ? "a fragmented state-led rulebook" : state.federalism < 35 ? "a nationally harmonized framework" : "contested federal-state authority";
+      $("#outcomeTitle").textContent = metrics.title;
+      $("#outcomeDistance").textContent = metrics.distanceLabel;
+      $("#outcomeNarrative").textContent = `${level.label} in ${binding.name.toLowerCase()} becomes the binding constraint, operating through ${federalText}. The selected ${state.horizon}-month horizon is long enough for ${state.horizon === 6 ? "signaling and early compliance cost" : state.horizon === 12 ? "contract, capex and release-cycle effects" : "market structure and valuation effects"} to emerge.`;
+      $("#bindingLever").textContent = `${binding.name} · ${level.label}`;
+      $("#valueTransfer").textContent = `${stakeholderScores[loserIndex].s.name} → ${stakeholderScores[winnerIndex].s.name}`;
+      const lens = metrics.bindingIndex === 0 ? "Map cross-border revenue and verified-access architecture."
+        : metrics.bindingIndex === 1 ? "Pre-clear CFIUS, information and governance rights."
+        : metrics.bindingIndex === 2 ? "Price assurance cost and slower release cadence."
+        : metrics.bindingIndex === 3 ? "Diligence executable power, tariffs and permits."
+        : "Test tax pass-through and task-displacement exposure.";
+      $("#investorLens").textContent = lens;
+      $("#federalismRange").style.setProperty("--fill", `${state.federalism}%`);
+    }
+
+    function renderImpact() {
+      const header = [
+        `<div class="matrix-cell matrix-cell--head">Stakeholder</div>`,
+        ...CATEGORIES.map(c => `<div class="matrix-cell matrix-cell--head">${c.label}</div>`),
+        `<div class="matrix-cell matrix-cell--head">Net</div>`
+      ].join("");
+      const renderRow = (stakeholder, isChild = false) => {
+        const scores = calculateImpact(stakeholder);
+        const total = scores.reduce((a,b) => a+b,0)/scores.length;
+        const expanded = stakeholder.children?.length && state.expandedGroups.has(stakeholder.key);
+        const totalBand = impactBand(total);
+        return [
+          `<div class="matrix-cell matrix-cell--row ${stakeholder.children?.length ? "matrix-cell--group" : ""} ${isChild ? "matrix-cell--child" : ""}" style="--stake:${stakeholder.color}">
+            ${stakeholder.children?.length
+              ? `<button class="group-toggle" type="button" data-group="${stakeholder.key}" aria-expanded="${expanded}" aria-label="${expanded ? "Collapse" : "Expand"} ${stakeholder.name}">${expanded ? "−" : "+"}</button>`
+              : `<span class="group-spacer" aria-hidden="true"></span>`}
+            <button class="stakeholder-select ${state.selectedStakeholder === stakeholder.key ? "is-selected" : ""}" type="button" data-stakeholder="${stakeholder.key}">
+              <i class="stake-dot"></i><span><strong>${stakeholder.name}</strong><span>${stakeholder.sub}</span></span>
+            </button>
+          </div>`,
+          ...scores.map((score, i) => {
+            const band = impactBand(score);
+            return `<div class="matrix-cell" title="${stakeholder.name}: ${CATEGORIES[i].label} — ${band.label}"><span class="impact-score" data-band="${band.band}">${band.label}</span></div>`;
+          }),
+          `<div class="matrix-cell matrix-cell--total"><span class="impact-score" data-band="${totalBand.band}">${totalBand.label}</span></div>`
+        ].join("");
+      };
+      const rows = topLevelStakeholders().map(stakeholder => {
+        const parentRow = renderRow(stakeholder);
+        if (!stakeholder.children?.length || !state.expandedGroups.has(stakeholder.key)) return parentRow;
+        return parentRow + stakeholder.children.map(key => renderRow(stakeholderByKey(key), true)).join("");
+      }).join("");
+      $("#impactMatrix").innerHTML = header + rows;
+      $$("[data-group]").forEach(btn => btn.addEventListener("click", () => {
+        const key = btn.dataset.group;
+        state.expandedGroups.has(key) ? state.expandedGroups.delete(key) : state.expandedGroups.add(key);
+        renderImpact();
+      }));
+      $$("[data-stakeholder]").forEach(btn => btn.addEventListener("click", () => {
+        state.selectedStakeholder = btn.dataset.stakeholder;
+        renderImpact();
+      }));
+      renderStakeholderDetail();
+    }
+
+    function renderStakeholderDetail() {
+      const s = STAKEHOLDERS.find(x => x.key === state.selectedStakeholder) || STAKEHOLDERS[0];
+      const scores = calculateImpact(s);
+      const min = Math.min(...scores);
+      const minIndex = scores.indexOf(min);
+      const total = scores.reduce((a,b) => a+b,0)/scores.length;
+      const netBand = impactBand(total);
+      $("#stakeholderDetail").innerHTML = `
+        <article class="detail-card detail-card--dark">
+          <p class="eyebrow" style="color:#cbb2d2">Selected stakeholder</p>
+          <h3>${s.name}</h3>
+          <p>${s.thesis}</p>
+          <div class="metric-pair"><strong>${netBand.label}</strong><span>Net directional impact across six dimensions</span></div>
+        </article>
+        <article class="detail-card">
+          <p class="eyebrow">Risk / opportunity</p>
+          <h3>${categoryName(CATEGORIES[minIndex].key)} is the pressure point</h3>
+          <p>${s.risk}</p>
+          <p style="margin-top:10px"><strong style="color:var(--ink)">Upside:</strong> ${s.opportunity}</p>
+        </article>
+        <article class="detail-card">
+          <p class="eyebrow">Underwriting response</p>
+          <h3>What to test now</h3>
+          <ul>${s.actions.map(a => `<li>${a}</li>`).join("")}</ul>
+        </article>`;
+    }
+
+    function planningActions() {
+      const conditional = [];
+      const noRegret = [
+        "Create a common regulatory exposure map across direct investments, funds and portfolio-company dependencies.",
+        "Require model portability, evidence-ready controls and regulatory-change clauses in enterprise AI contracts.",
+        "Separate absolute economic impact from relative competitive advantage in every investment case."
+      ];
+      const avoid = [
+        "Do not assign value to regulatory capture without testing who sets the standard and who bears compliance cost.",
+        "Do not treat unpermitted land, speculative power or long-dated orbital compute as an immediate hedge.",
+        "Do not rely on a single federal outcome while state laws and grid rules remain independently actionable."
+      ];
+      if (state.values[0] >= 2) conditional.push("If verified access becomes mandatory, fund identity / policy infrastructure and map international revenue by user, model and jurisdiction.");
+      if (state.values[1] >= 2) conditional.push("If ownership limits tighten, move to pre-cleared passive rights, US co-investors or instruments with capped information and governance rights.");
+      if (state.values[2] >= 3) conditional.push("If a release license emerges, reserve capital for longer lab cycles and increase exposure to accredited evaluation, monitoring and security.");
+      if (state.values[3] >= 2) conditional.push("If large-load obligations harden, prioritize sites with executable interconnection, dedicated generation and contractual cost recovery.");
+      if (state.values[4] >= 2) conditional.push("If worker obligations move beyond reskilling, diligence task displacement and model tax / levy pass-through at unit-economics level.");
+      if (!conditional.length) conditional.push("No severe policy mechanism is active. Preserve dry powder and wait for a defined legal change before paying for a policy hedge.");
+      return { noRegret, conditional, avoid };
+    }
+
+    function renderPlaybook() {
+      const a = planningActions();
+      $("#playbookGrid").innerHTML = `
+        <article class="play-card">
+          <div class="play-card__top"><span class="play-card__icon">✓</span><span class="play-card__tag">Execute now</span></div>
+          <h3>No-regret moves</h3>
+          <p>Improve resilience without requiring a directional policy call.</p>
+          <ul>${a.noRegret.map(x => `<li>${x}</li>`).join("")}</ul>
+        </article>
+        <article class="play-card play-card--amber">
+          <div class="play-card__top"><span class="play-card__icon">↳</span><span class="play-card__tag">Trigger-based</span></div>
+          <h3>Contingent actions</h3>
+          <p>Move only when the named policy mechanism becomes observable.</p>
+          <ul>${a.conditional.map(x => `<li>${x}</li>`).join("")}</ul>
+        </article>
+        <article class="play-card play-card--rose">
+          <div class="play-card__top"><span class="play-card__icon">×</span><span class="play-card__tag">Avoid</span></div>
+          <h3>False comfort</h3>
+          <p>Common assumptions that understate policy and execution risk.</p>
+          <ul>${a.avoid.map(x => `<li>${x}</li>`).join("")}</ul>
+        </article>`;
+    }
+
+    function renderTailOutcomes() {
+      $("#tailGrid").innerHTML = TAIL_OUTCOMES.map((s, i) => `
+        <article class="tail-card" style="--tail-color:${s.color}">
+          <div class="tail-card__summary" role="button" tabindex="0" aria-expanded="false">
+            <div class="tail-card__meta"><span class="risk-badge">High impact</span><span class="distance-badge">${s.distance}</span></div>
+            <h3>${s.title}</h3>
+            <p>${s.subtitle}</p>
+          </div>
+          <div class="tail-card__detail">
+            <div class="transmission">${s.chain.map((x, j) => `${j ? "<i>→</i>" : ""}<span>${x}</span>`).join("")}</div>
+            <div class="tail-detail-grid">
+              <div class="tail-detail-block"><span>Catalyst</span><p>${s.catalyst}</p></div>
+              <div class="tail-detail-block"><span>Policy mechanism</span><p>${s.mechanism}</p></div>
+              <div class="tail-detail-block"><span>Relative winners</span><p>${s.winners}</p></div>
+              <div class="tail-detail-block"><span>Most exposed</span><p>${s.losers}</p></div>
+            </div>
+            <div class="tail-detail-block" style="margin-top:13px"><span>Portfolio response</span><p>${s.response}</p></div>
+            <div class="tail-card__actions"><button class="btn btn--primary btn--small" type="button" data-apply-tail="${s.key}">Apply outcome</button></div>
+          </div>
+        </article>`).join("");
+      $$(".tail-card__summary").forEach(summary => {
+        const toggle = () => {
+          const card = summary.closest(".tail-card");
+          const open = card.classList.toggle("open");
+          summary.setAttribute("aria-expanded", String(open));
+        };
+        summary.addEventListener("click", toggle);
+        summary.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+      });
+      $$("[data-apply-tail]").forEach(btn => btn.addEventListener("click", () => {
+        applyPreset(btn.dataset.applyTail);
+        $("#builder").scrollIntoView({ behavior: "smooth" });
+        showToast("Tail outcome applied to the builder.");
+      }));
+    }
+
+    function renderWatchlist() {
+      $("#watchList").innerHTML = WATCHLIST.map((w, i) => `
+        <div class="watch-row">
+          <span class="watch-row__num">0${i+1}</span>
+          <div><strong>${w.title}</strong><p>${w.text}</p></div>
+          <span class="watch-row__status ${w.cls}">${w.status}</span>
+        </div>`).join("");
+    }
+
+    function renderEvidence() {
+      $("#evidenceGrid").innerHTML = SOURCES.map(s => `
+        <a class="source-card" href="${s.url}" target="_blank" rel="noopener noreferrer">
+          <span class="source-card__type">${s.type}</span>
+          <strong>${s.title} ↗</strong>
+          <p>${s.desc}</p>
+          <small>${s.date}</small>
+        </a>`).join("");
+    }
+
+    function applyPreset(key) {
+      const p = PRESETS[key];
+      if (!p) return;
+      state.values = [...p.values];
+      state.federalism = p.federalism;
+      state.horizon = p.horizon;
+      state.preset = key;
+      $("#presetSelect").value = key;
+      $("#federalismRange").value = state.federalism;
+      updateAll();
+    }
+
+    function updateAll() {
+      renderLevers();
+      const metrics = outcomeMetrics();
+      updateHero(metrics);
+      updateSynthesis(metrics);
+      renderImpact();
+      renderPlaybook();
+      $$("#horizonControl button").forEach(b => b.classList.toggle("active", Number(b.dataset.horizon) === state.horizon));
+      try {
+        localStorage.setItem("ai-policy-outcome", JSON.stringify({
+          values: state.values, federalism: state.federalism, horizon: state.horizon,
+          selectedStakeholder: state.selectedStakeholder, expandedGroups: [...state.expandedGroups]
+        }));
+      } catch (_) {}
+    }
+
+    function memoText() {
+      const m = outcomeMetrics();
+      const binding = LEVERS[m.bindingIndex];
+      const impacts = topLevelStakeholders().map(s => {
+        const scores = calculateImpact(s);
+        return { name: s.name, total: scores.reduce((a,b) => a+b,0)/scores.length };
+      }).sort((a,b) => a.total - b.total);
+      const a = planningActions();
+      return [
+        `US AI REGULATORY LEVERS & OUTCOMES`,
+        `Policy mix: ${m.title}`,
+        `Horizon: ${state.horizon} months | Policy distance: ${m.distanceLabel} | Pressure: ${m.pressure}/100`,
+        `Federal-state balance: ${state.federalism >= 70 ? "State-led patchwork" : state.federalism <= 30 ? "Federal harmonization" : "Contested / mixed"}`,
+        ``,
+        `LEVER SETTINGS`,
+        ...LEVERS.map((l,i) => `• ${l.name}: ${l.levels[state.values[i]].label} — ${l.levels[state.values[i]].desc}`),
+        ``,
+        `SYNTHESIS`,
+        `Binding constraint: ${binding.name}. Most exposed: ${impacts[0].name} (${impactBand(impacts[0].total).label}). Relative beneficiary: ${impacts[impacts.length-1].name} (${impactBand(impacts[impacts.length-1].total).label}).`,
+        `Stakeholder read-throughs: ${impacts.map(x => `${x.name} — ${impactBand(x.total).label}`).join("; ")}.`,
+        ``,
+        `NO-REGRET ACTIONS`,
+        ...a.noRegret.map(x => `• ${x}`),
+        ``,
+        `CONTINGENT ACTIONS`,
+        ...a.conditional.map(x => `• ${x}`),
+        ``,
+        `Directional decision support, not a forecast or legal advice. Evidence cut: 23 July 2026.`
+      ].join("\n");
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 2400);
+    }
+
+    function bindControls() {
+      $("#presetSelect").addEventListener("change", e => applyPreset(e.target.value));
+      $("#horizonControl").addEventListener("click", e => {
+        const btn = e.target.closest("button[data-horizon]");
+        if (!btn) return;
+        state.horizon = Number(btn.dataset.horizon);
+        state.preset = "custom";
+        $("#presetSelect").value = "";
+        updateAll();
+      });
+      $("#federalismRange").addEventListener("input", e => {
+        state.federalism = Number(e.target.value);
+        state.preset = "custom";
+        $("#presetSelect").value = "";
+        updateAll();
+      });
+      $("#resetOutcome").addEventListener("click", () => applyPreset("baseline"));
+      $("#printMemo").addEventListener("click", () => window.print());
+      $("#copyMemo").addEventListener("click", async () => {
+        let copied = false;
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(memoText());
+            copied = true;
+          }
+        } catch (_) {
+          copied = false;
+        }
+        if (!copied && typeof document.execCommand === "function") {
+          const area = document.createElement("textarea");
+          area.value = memoText();
+          document.body.appendChild(area);
+          area.select();
+          copied = document.execCommand("copy");
+          area.remove();
+        }
+        if (copied) {
+          showToast("Executive policy brief copied.");
+        } else {
+          window.prompt("Copy the executive policy brief:", memoText());
+        }
+      });
+    }
+
+    function restoreState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("ai-policy-outcome") || "null");
+        if (!saved || !Array.isArray(saved.values) || saved.values.length !== 5) return;
+        state.values = saved.values.map(v => clamp(Number(v) || 0, 0, 4));
+        state.federalism = clamp(Number(saved.federalism) || 65, 0, 100);
+        state.horizon = [6,12,24].includes(Number(saved.horizon)) ? Number(saved.horizon) : 12;
+        state.selectedStakeholder = STAKEHOLDERS.some(s => s.key === saved.selectedStakeholder) ? saved.selectedStakeholder : "model_labs";
+        state.expandedGroups = new Set(Array.isArray(saved.expandedGroups)
+          ? saved.expandedGroups.filter(key => stakeholderByKey(key)?.children?.length)
+          : []);
+        state.preset = "custom";
+      } catch (_) {}
+    }
+
+    restoreState();
+    populatePresets();
+    renderTailOutcomes();
+    renderWatchlist();
+    renderEvidence();
+    bindControls();
+    $("#federalismRange").value = state.federalism;
+    updateAll();
+  </script>
+</body>
+</html>
